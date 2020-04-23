@@ -13,8 +13,6 @@ import datetime
 class Truck(models.Model):
     name = models.CharField(max_length=50)
     style = models.CharField(max_length=50)
-
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -29,7 +27,6 @@ class Menu(models.Model):
     food_name = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
     price = models.IntegerField()
-    
     truck = models.ForeignKey(Truck, on_delete=models.CASCADE)
     print(truck)
 
@@ -45,8 +42,6 @@ class Profile(models.Model):
     truck_owner = models.BooleanField(default=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500)
-    
-
     trucks = models.ManyToManyField(Truck)
 
     def __str__(self):
@@ -71,7 +66,6 @@ class Calendar(models.Model):
     start_time = models.CharField(max_length=50)
     end_time = models.CharField(max_length=50)
     location = models.CharField(max_length=250)
-
     truck = models.ForeignKey(Truck, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -80,11 +74,6 @@ class Calendar(models.Model):
     def date_checker(self):
         date_check = date.today()
         return self.date < date_check
-    
-    def where_today(self):
-        date_check = date.today()
-        if date_check == self.date:
-            return self
 
     class Meta:
         ordering = ['-date']
